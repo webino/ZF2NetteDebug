@@ -1,6 +1,6 @@
 {
     "name": "webino/zf2nette-debug",
-    "description": "Nette Debugger for ZF2",
+    "description": "User friendly Exception and Error handler ported from Nette Framework.",
     "type": "library",
     "keywords": ["debug","debugger", "zf2"],
     "homepage": "http://github.com/webino/Zf2NetteDebug",
@@ -28,8 +28,8 @@
         "zendframework/zendframework": "2.*"
     },
     "suggest": {
-        "zendframework/ZendDeveloperTools": "Module for developer and debug tools for working with the ZF2 MVC layer. ",
-        "webino/WebinoDraw": "XHTML Layout Renderer for Zend Framework"
+        "zendframework/ZendDeveloperTools": "Module for developer and debug tools for working with the ZF2 MVC layer.",
+        "webino/WebinoDraw": "XHTML Layout Renderer for Zend Framework."
     },
     "autoload": {
         "psr-0": {
