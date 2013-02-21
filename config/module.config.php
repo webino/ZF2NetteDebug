@@ -23,5 +23,6 @@ return array(
         'template_map' => array(       // merge templates if enabled
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
+        'zend_logger' => '',           // \Zend\Log\Logger instance, must be available thru the Service Manger
     ),
 );

@@ -71,6 +71,13 @@ class Module
             $app->getServiceManager()->get('viewtemplatemapresolver')->merge(
                 $config['nette_debug']['template_map']
             );
+
+        if (isset($config['nette_debug']['zend_logger']) && $config['nette_debug']['zend_logger'] != ''){
+            $logger = $app->getServiceManager()->get($config['nette_debug']['zend_logger']);
+             if ($logger instanceof \Zend\Log\Logger) Debugger::$zendLogger = $logger;
+             else Debugger::$zendLogger = false;
+        }
+        else Debugger::$zendLogger = false;
     }
 
     /**
