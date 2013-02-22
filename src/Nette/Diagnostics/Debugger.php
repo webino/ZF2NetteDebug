@@ -87,6 +87,8 @@ final class Debugger
 
 	/** @var Logger */
 	public static $logger;
+        
+        public static $zendLogger;
 
 	/** @var FireLogger */
 	public static $fireLogger;
@@ -325,9 +327,56 @@ final class Debugger
 			return strtr($exceptionFilename, '\\/', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
 		}
 	}
+        
+        
+        /**
+	 * Logs message or exception using external Zend\Log\Logger (if enabled).
+	 * @param  string|Exception
+	 * @return void
+	 */
+        
+        public static function logZend($message) 
+        {
+            if (self::$zendLogger === false) {
+                return;
+            }
+            if ($message instanceof \Exception) {                
+                $exception = $message;
+                $logMessages = array();
+                $ZLogger = get_class(self::$zendLogger);
+                $errorPriorityMap = $ZLogger::$errorPriorityMap;
+                
+                do {
+                    $priority = $ZLogger::ERR;
+                    if ($exception instanceof \ErrorException && isset($errorPriorityMap[$exception->getSeverity()])) {
+                        $priority = $errorPriorityMap[$exception->getSeverity()];
+                    }
 
+                    $extra = array(
+                        'file'  => $exception->getFile(),
+                        'line'  => $exception->getLine(),
+                        'trace' => $exception->getTrace(),
+                    );
 
+                    $logMessages[] = array(
+                        'priority' => $priority,
+                        'message'  => $exception->getMessage(),
+                        'extra'    => $extra,
+                    );
+                    $exception = $exception->getPrevious();
+                } while ($exception);
 
+                foreach (array_reverse($logMessages) as $logMessage) {
+                    self::$zendLogger->log($logMessage['priority'], $logMessage['message'], $logMessage['extra']);
+                }
+                
+            }
+            else {
+                self::$zendLogger->log($ZLogger::ERR,$message);
+            }
+        }
+
+        
 	/**
 	 * Shutdown handler to catch fatal errors and execute of the planned activities.
 	 * @return void
@@ -409,6 +458,10 @@ final class Debugger
 					}
 				}
 			}
+                        
+                        if (self::$zendLogger){
+                                self::logZend($exception);
+                        }
 
 			foreach (self::$onFatalError as $handler) {
 				call_user_func($handler, $exception);
@@ -486,6 +539,10 @@ final class Debugger
 			$ok = self::fireLog(new \ErrorException($message, 0, $severity, $file, $line), self::WARNING);
 			return !self::isHtmlMode() || (!self::$bar && !$ok) ? FALSE : NULL;
 		}
+                
+                if (self::$zendLogger){
+                        self::logZend("$message in $file:$line");
+                }
 
 		return FALSE; // call normal error handler
 	}
