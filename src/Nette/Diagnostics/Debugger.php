@@ -197,7 +197,7 @@ final class Debugger
 	 */
 	public static function enable($mode = NULL, $logDirectory = NULL, $email = NULL)
 	{
-		error_reporting(E_ALL | E_STRICT);
+		if (!self::$consoleMode) error_reporting(E_ALL | E_STRICT);
 
 		// production/development mode detection
 		if (is_bool($mode)) {
