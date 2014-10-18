@@ -1,7 +1,7 @@
 
 # !!! THIS PACKAGE IS DEPRECATED !!!
 It's replaced by https://github.com/webino/WebinoDebug
-# !!! THIS PACKAGE IS NO BEING LONGER MAINTAINED !!!
+# !!! THIS PACKAGE IS NO LONGER BEING MAINTAINED !!!
 
 
 # ZF2 Debugger ported from Nette Framework
