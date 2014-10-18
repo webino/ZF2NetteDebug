@@ -1,3 +1,9 @@
+
+# !!! THIS PACKAGE IS DEPRECATED !!!
+It's replace by https://github.com/webino/WebinoDebug
+# !!! THIS PACKAGE IS NO BEING LONGER MAINTAINED !!!
+
+
 # ZF2 Debugger ported from Nette Framework
 Provides user friendly error and exception handling.
 
