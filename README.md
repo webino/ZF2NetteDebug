@@ -1,6 +1,6 @@
 
 # !!! THIS PACKAGE IS DEPRECATED !!!
-It's replace by https://github.com/webino/WebinoDebug
+It's replaced by https://github.com/webino/WebinoDebug
 # !!! THIS PACKAGE IS NO BEING LONGER MAINTAINED !!!
 
 
